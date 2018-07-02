@@ -1,0 +1,65 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jul 2, 2018, 7:20:16 PM
+    Author     : alex
+*/
+
+.mesa 
+{
+    height: 600px;
+    width: 1215px;
+    padding: 5px;
+    margin-left: 10%;
+    margin-top: 5%;
+    border: 1px;
+    background-image: url("../imagenes/mesa.jpg");
+    background-repeat: no-repeat;
+    background-color: #420e0e;
+    color: green;
+    
+    
+    
+}
+
+#mensajes {
+    margin-left: 15%;
+}
+
+#pozo {
+    margin-left: 40%;
+    margin-top: 1%;
+}
+
+
+.carta {
+     width:10%; 
+     height:10%;
+}
+
+.carta:hover {
+    transform: scale(2.5);
+    
+}
+
+#mano {
+    margin-top: 0px;
+    margin-left: 30%;
+   
+    
+}
+
+.btnSalir {
+    float: right;
+}
+
+.saldoImg
+{
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+    
+}

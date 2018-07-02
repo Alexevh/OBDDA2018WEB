@@ -80,8 +80,8 @@ public class VistaJuegoWeb implements VistaJuego {
         Participante p = (Participante)request.getSession(false).getAttribute("participante");
         int saldo = p.getJugador().getSaldo();
         
-        String div = "<div><img src='/imagenes/saldo.png'><br>"
-                + "<span>Su saldo es"+saldo+"</span></div>";
+        String div = "<div><img class='saldoImg' src='imagenes/saldo.png'><br>"
+                + "<span>Su saldo es :$"+saldo+"<br></span></div>";
         
         enviar("actualizarMesa", div);
         
@@ -95,7 +95,7 @@ public class VistaJuegoWeb implements VistaJuego {
 
     @Override
     public void actualizarPozo(int pozo) {
-        String div = "<h3>Pozo actual $:"+pozo+ "</h3><br><img src='imagenes/pozo.png' style='width:5%; height:5%'/>";
+        String div = "<h3>Pozo actual $:"+pozo+ "</h3><br><img src='imagenes/pozo.png' style='width:10%; height:10%'/>";
         
         enviar("actualizarPozo", div);
     }
@@ -129,7 +129,7 @@ public class VistaJuegoWeb implements VistaJuego {
         
         for (Carta c: cartas)
         {
-            div+="<img src='imagenes/cartas/"+c.getImagen()+"' style='width:20%; height:20%'/>";
+            div+="<img class='carta' src='imagenes/cartas/"+c.getImagen()+"' style='width:30%; height:30%'/>";
         }
         
         
@@ -151,7 +151,7 @@ public class VistaJuegoWeb implements VistaJuego {
         String mano = "";
         for (Carta c: cartasMano)
         {
-            mano+="<img src='imagenes/cartas/"+c.getImagen()+"' style='width:5%; height:5%'/>";
+            mano+="<img  class='carta'src='imagenes/cartas/"+c.getImagen()+"'/>";
         }
         
         enviar("mostrarParticipantes", "En la mano actual tenes :"+figura);

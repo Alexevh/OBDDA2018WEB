@@ -14,6 +14,7 @@
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <script src="bootstrap/js/jquery-3.3.1.min.js" type="text/javascript"></script>
     <script src="bootstrap/js/bootstrap.js" type="text/javascript"></script> 
+    <link href="css/mesa.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript">
 
         var vistaWeb = new EventSource("juego?accion=nuevo");
@@ -33,7 +34,7 @@
         }, false);
 
         vistaWeb.addEventListener("actualizarListaParticipantes", function (evento) {
-            document.getElementById("listaParticipantes").innerHTML = evento.data;
+            document.getElementById("listaParticipantes").innerHTML = "Lista de participantes<br>"+evento.data;
 
         }, false);
         vistaWeb.addEventListener("actualizarPozo", function (evento) {
@@ -167,10 +168,18 @@
     <body>
 
 
+        <div class="mesa">
+            
+            
+        
+        
         <p id="mensajes"></p> 
-        <div id="saldo"></div>
-        <div id="listaParticipantes"></div>
         <div id="pozo"></div>
+        
+       
+        <div id="listaParticipantes"></div>
+         <div id="mano"></div>
+         <div id="saldo"></div>
         <div id="montoApostar"><input type="number" id="monto" /></div>
         <div id="opciones">
             <input type="button"  value="Apostar" onclick="apostar()" >
@@ -178,10 +187,12 @@
             <input type="button"  value="Pasar" onclick="pasar()" />
         </div>
         <div id="listaPagan"></div>
-        <div id="mano"></div>
+        
         <div id="modalGanador"></div>
-
-        <input type="button"  value="Salir del juego" onclick="salir()" />
+        <input class='btnSalir' type="button"  value="Salir del juego" onclick="salir()" />
+</div>
+        
+        
 
 
 
