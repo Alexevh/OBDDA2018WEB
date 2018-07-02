@@ -101,11 +101,13 @@ public class VistaJuegoWeb implements VistaJuego {
     @Override
     public void actualizarPagan(List<Participante> pagan) {
        /*Actualizar lista de jugadores que pagan */
+       ArrayList lista = new ArrayList(pagan);
+        enviar("actualizarListaPagan",utiles.Componentes.lista(true, "listaParticipantes", lista));
     }
 
     @Override
     public void seguirJugando() {
-     /*Tiene que levantar un modal que bloquee la pantalla para seguir jugando o no*/
+     enviar("seguirJugando", "");
     }
 
     @Override
@@ -119,6 +121,10 @@ public class VistaJuegoWeb implements VistaJuego {
     @Override
     public void mostrarGanador(String nombre, String figura, List<Carta> cartas) {
         /*Abrir un modal con el ganador y sus cartas*/
+        ArrayList lista = new ArrayList(cartas);
+        String div = "El ganador fue "+nombre+" con "+figura+" "+utiles.Componentes.lista(true, "listaParticipantes", lista);
+        
+        enviar("mostrarGanador", div);
     }
 
     @Override
@@ -208,6 +214,9 @@ public class VistaJuegoWeb implements VistaJuego {
             case "dejar":
                 dejar(request);
                 break;
+            case "salir":
+                salirJuego();
+                break;
 
         }
     }
@@ -250,6 +259,8 @@ public class VistaJuegoWeb implements VistaJuego {
         controlador.desregistrarControlador();
         controlador = null;
     }
+
+  
         
         
    
