@@ -95,7 +95,9 @@ public class VistaJuegoWeb implements VistaJuego {
 
     @Override
     public void actualizarPozo(int pozo) {
-        enviar("actualizarPozo", "Pozo actual $:"+pozo);
+        String div = "<h3>Pozo actual $:"+pozo+ "</h3><br><img src='imagenes/pozo.png' style='width:5%; height:5%'/>";
+        
+        enviar("actualizarPozo", div);
     }
 
     @Override
@@ -121,8 +123,18 @@ public class VistaJuegoWeb implements VistaJuego {
     @Override
     public void mostrarGanador(String nombre, String figura, List<Carta> cartas) {
         /*Abrir un modal con el ganador y sus cartas*/
-        ArrayList lista = new ArrayList(cartas);
-        String div = "El ganador fue "+nombre+" con "+figura+" "+utiles.Componentes.lista(true, "listaParticipantes", lista);
+        ArrayList<String> cartasGanadoras = new ArrayList();
+        String div = "El ganador fue "+nombre+" con "+figura+"<br> ";
+        
+        
+        for (Carta c: cartas)
+        {
+            div+="<img src='imagenes/cartas/"+c.getImagen()+"' style='width:20%; height:20%'/>";
+        }
+        
+        
+        
+       ;
         
         enviar("mostrarGanador", div);
     }
@@ -136,25 +148,14 @@ public class VistaJuegoWeb implements VistaJuego {
     public void actualizarMano(List<Carta> cartasMano, String figura) {
         
         ArrayList<String> cartas = new ArrayList();
-        
+        String mano = "";
         for (Carta c: cartasMano)
         {
-            cartas.add(c.getImagen());
+            mano+="<img src='imagenes/cartas/"+c.getImagen()+"' style='width:5%; height:5%'/>";
         }
         
-        
-        
-        
-        /*
-        ImageIcon carta1 = new ImageIcon(new ImageIcon("src/imagenes/cartas/" + cartas.get(0).getImagen()).getImage());
-        // ImageIcon carta1 = new ImageIcon(new ImageIcon("src/imagenes/cartas/10c.gif").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
-        c1.setIcon(carta1);
-        c2.setIcon(new ImageIcon(new ImageIcon("src/imagenes/cartas/" + cartas.get(1).getImagen()).getImage()));
-        c3.setIcon(new ImageIcon(new ImageIcon("src/imagenes/cartas/" + cartas.get(2).getImagen()).getImage()));
-        c4.setIcon(new ImageIcon(new ImageIcon("src/imagenes/cartas/" + cartas.get(3).getImagen()).getImage()));
-        c5.setIcon(new ImageIcon(new ImageIcon("src/imagenes/cartas/" + cartas.get(4).getImagen()).getImage()));*/
         enviar("mostrarParticipantes", "En la mano actual tenes :"+figura);
-        enviar("actualizarMano", utiles.Componentes.lista(true, "mano", cartas));
+        enviar("actualizarMano", mano);
         
     }
 
