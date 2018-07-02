@@ -5,6 +5,7 @@
  */
 package vistas;
 
+import Excepciones.PokerExcepciones;
 import controlador.ControladorJuego;
 import controlador.VistaJuego;
 import java.io.IOException;
@@ -48,7 +49,7 @@ public class VistaJuegoWeb implements VistaJuego {
 
     @Override
     public void mostrarError(String mensaje) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        enviar("actualizarListaParticipantes", mensaje);
     }
 
     @Override
@@ -56,9 +57,9 @@ public class VistaJuegoWeb implements VistaJuego {
         
        /* Aca lo que hacemos es, vemos que cartas tiene en la mano el participante y las mostramos
         en imagenes*/
-       String div = " <input type=\"button\" id=\"apostar\" value=\"Apostar\" onclick=\"apostar()\" disabled=\"false\"/>\n" +
-"            <input type=\"button\" id=\"pagar\" value=\"Pagar\" onclick=\"pagar()\" disabled=\"false\"/>\n" +
-"            <input type=\"button\" id=\"pasar\" value=\"Pasar\" onclick=\"pasar()\" disabled=\"false\"/>";
+       String div = "<input type=\"button\"  value=\"Apostar\" onclick=\"apostar()\" >\n" +
+"            <input type=\"button\"  value=\"Pagar\" onclick=\"pagar()\" />\n" +
+"            <input type=\"button\"  value=\"Pasar\" onclick=\"pasar()\" />";
        
        
         enviar("inicioNuevaMano", div);
@@ -125,6 +126,16 @@ public class VistaJuegoWeb implements VistaJuego {
     @Override
     public void actualizarMano(List<Carta> cartasMano, String figura) {
         
+        ArrayList<String> cartas = new ArrayList();
+        
+        for (Carta c: cartasMano)
+        {
+            cartas.add(c.getImagen());
+        }
+        
+        
+        
+        
         /*
         ImageIcon carta1 = new ImageIcon(new ImageIcon("src/imagenes/cartas/" + cartas.get(0).getImagen()).getImage());
         // ImageIcon carta1 = new ImageIcon(new ImageIcon("src/imagenes/cartas/10c.gif").getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
@@ -134,7 +145,7 @@ public class VistaJuegoWeb implements VistaJuego {
         c4.setIcon(new ImageIcon(new ImageIcon("src/imagenes/cartas/" + cartas.get(3).getImagen()).getImage()));
         c5.setIcon(new ImageIcon(new ImageIcon("src/imagenes/cartas/" + cartas.get(4).getImagen()).getImage()));*/
         enviar("mostrarParticipantes", "En la mano actual tenes :"+figura);
-        
+        enviar("actualizarMano", utiles.Componentes.lista(true, "mano", cartas));
         
     }
 
@@ -177,13 +188,25 @@ public class VistaJuegoWeb implements VistaJuego {
 
     }
 
-    public void procesar(HttpServletRequest request, String accion) {
+    public void procesar(HttpServletRequest request, String accion) throws PokerExcepciones {
         switch (accion) {
-            case "crearContacto":
-                //crearContacto(request);
+            case "apostar":
+                apostar(request);
                 break;
 
         }
+    }
+
+    private void apostar(HttpServletRequest request) throws PokerExcepciones {
+        int valor = Integer.parseInt(request.getParameter("monto"));
+        Participante p = (Participante) request.getSession().getAttribute("participante");
+        try {
+            controlador.registrarApuesta(p, valor);
+        } catch (PokerExcepciones ex)
+        {
+            mostrarError(ex.getMessage());
+        }
+        
     }
 
 }

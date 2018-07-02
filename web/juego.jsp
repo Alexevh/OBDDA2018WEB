@@ -49,18 +49,25 @@
                 document.getElementById("listaPagan").innerHTML=evento.data;
                 
             },false);
+            vistaWeb.addEventListener("actualizarMano", function (evento){
+                document.getElementById("mano").innerHTML=evento.data;
+                
+            },false);
             
             
             
             /* Funciones */
              function apostar() {
-          
-                 $.get("juego?accion=apostar", function (data) {
-                     document.location="/juego/";
+            var monto = $("#monto").val();
+               
+                $.get("juego?accion=apostar&monto="+monto, function (data) {
+                 
                 });
-                
                                 
             };
+            
+            
+            
               function pagar() {
           
                  $.get("juego?accion=pagar", function (data) {
@@ -87,11 +94,13 @@
         <div id="saldo"></div>
         <div id="listaParticipantes"></div>
         <div id="pozo"></div>
+        <div id="montoApostar"><input type="number" id="monto" /></div>
         <div id="opciones">
-            <input type="button" id="apostar" value="Apostar" onclick="apostar()" disabled="true"/>
-            <input type="button" id="pagar" value="Pagar" onclick="pagar()" disabled="true"/>
-            <input type="button" id="pasar" value="Pasar" onclick="pasar()" disabled="true"/>
+            <input type="button"  value="Apostar" onclick="apostar()" >
+            <input type="button"  value="Pagar" onclick="pagar()" />
+            <input type="button"  value="Pasar" onclick="pasar()" />
         </div>
         <div id="listaPagan"></div>
+        <div id="mano"></div>
     </body>
 </html>
