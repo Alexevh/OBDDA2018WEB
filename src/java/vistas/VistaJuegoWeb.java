@@ -71,7 +71,7 @@ public class VistaJuegoWeb implements VistaJuego {
 
     @Override
     public void inicioNuevaApuesta(String jugadorNombre, int monto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        enviar("nuevaApuesta", jugadorNombre+" ha apostado "+monto);
     }
 
     @Override
@@ -100,27 +100,30 @@ public class VistaJuegoWeb implements VistaJuego {
 
     @Override
     public void actualizarPagan(List<Participante> pagan) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       /*Actualizar lista de jugadores que pagan */
     }
 
     @Override
     public void seguirJugando() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     /*Tiene que levantar un modal que bloquee la pantalla para seguir jugando o no*/
     }
 
     @Override
     public void salirJuego() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Participante p = (Participante) request.getSession().getAttribute("participante");
+        controlador.eliminarParticipante(p);
+        controlador.desregistrarControlador();
+        controlador = null;
     }
 
     @Override
     public void mostrarGanador(String nombre, String figura, List<Carta> cartas) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        /*Abrir un modal con el ganador y sus cartas*/
     }
 
     @Override
     public void fuiExpulsado() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        salirJuego();
     }
 
     @Override
@@ -151,7 +154,7 @@ public class VistaJuegoWeb implements VistaJuego {
 
     @Override
     public void actualizarTimer(int timer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        enviar("actualizarTimer", "Segundos para que todos respondan :"+timer);
     }
 
     public void inicializar() {
@@ -193,6 +196,18 @@ public class VistaJuegoWeb implements VistaJuego {
             case "apostar":
                 apostar(request);
                 break;
+            case "pagar":
+                pagar(request);
+                break;
+            case "pasar":
+                pasar(request);
+                break;
+            case "seguir":
+                seguir(request);
+                break;
+            case "dejar":
+                dejar(request);
+                break;
 
         }
     }
@@ -208,5 +223,35 @@ public class VistaJuegoWeb implements VistaJuego {
         }
         
     }
+    
+        private void pagar(HttpServletRequest request) throws PokerExcepciones {
+        
+        
+            controlador.pagar();
+       
+        
+    }
+        
+      private void pasar(HttpServletRequest request) throws PokerExcepciones {
+      
+          controlador.pasarApuesta();
+        
+    }
+
+    private void seguir(HttpServletRequest request) {
+        controlador.juegoSiguienteMano(true);
+        enviar("mostrarParticipantes", "Esperando apuesta");
+    }
+
+    private void dejar(HttpServletRequest request) {
+        controlador.juegoSiguienteMano(false);
+        Participante p = (Participante) request.getSession().getAttribute("participante");
+        controlador.eliminarParticipante(p);
+        controlador.desregistrarControlador();
+        controlador = null;
+    }
+        
+        
+   
 
 }

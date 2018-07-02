@@ -54,6 +54,16 @@
                 
             },false);
             
+            vistaWeb.addEventListener("actualizarTimer", function (evento){
+                document.getElementById("mensajes").innerHTML=evento.data;
+                
+            },false);
+            
+            vistaWeb.addEventListener("nuevaApuesta", function (evento){
+                document.getElementById("mensajes").innerHTML=evento.data;
+                
+            },false);
+            
             
             
             /* Funciones */
@@ -71,7 +81,7 @@
               function pagar() {
           
                  $.get("juego?accion=pagar", function (data) {
-                     document.location="/juego/";
+                  
                 });
                 
                                 
@@ -79,7 +89,25 @@
               function pasar() {
           
                  $.get("juego?accion=pasar", function (data) {
-                     document.location="/juego/";
+                     
+                });
+                
+                                
+            };
+            
+            function seguir() {
+          
+                 $.get("juego?accion=seguir", function (data) {
+                    
+                });
+                
+                                
+            };
+            
+            function dejar() {
+          
+                 $.get("juego?accion=dejar", function (data) {
+                   
                 });
                 
                                 
@@ -90,6 +118,11 @@
     
     
     <body>
+        <div id="seguirJugando">
+            <input type="button"  value="Si" onclick="seguir()" >
+            <input type="button"  value="No" onclick="dejar()" />
+        </div>
+        
         <p id="mensajes"></p> 
         <div id="saldo"></div>
         <div id="listaParticipantes"></div>
