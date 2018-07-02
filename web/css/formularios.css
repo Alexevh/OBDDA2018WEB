@@ -1,0 +1,74 @@
+form {
+    width: 50%;
+    float: left;
+    padding: 5px;   
+    margin: 3%;
+    padding-bottom: 20px;
+    color: green;
+    border: solid 1px;
+    border-color: #1e5799;
+    box-shadow: 3px -4px 1.5px #000; 
+    background: #1b440d;
+
+}
+
+.button {
+    margin-top: 5px;
+   
+    color: green;
+}
+
+label {
+    font-size: 12px;
+    display: block;
+    width: 100%;
+    
+}
+
+form input:focus, textarea:focus {
+    
+    border:1px solid #1668C4;
+}
+
+form input[type="button"]{
+   
+    margin: 5px;
+    background: #1e5799;
+    color: #fff;
+    border: none;
+}
+
+form input[type="text"]{
+   
+    margin: 5px;    
+    border: none;
+    
+}
+
+form input[type="button"]:hover{
+    
+    background: #1668C4;
+    cursor: pointer;
+    
+}
+
+textarea {
+    resize:vertical;
+    max-height: 200px;
+    min-height: 50px;
+}
+
+ textarea {
+    
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border:1px solid #ccc;
+}
+
+form input[type="text"], input[type="password"]
+{
+    width: 95%;
+    margin: 2px;
+}
