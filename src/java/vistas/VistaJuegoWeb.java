@@ -57,12 +57,12 @@ public class VistaJuegoWeb implements VistaJuego {
         
        /* Aca lo que hacemos es, vemos que cartas tiene en la mano el participante y las mostramos
         en imagenes*/
-       String div = "<input type=\"button\"  value=\"Apostar\" onclick=\"apostar()\" >\n" +
-"            <input type=\"button\"  value=\"Pagar\" onclick=\"pagar()\" />\n" +
-"            <input type=\"button\"  value=\"Pasar\" onclick=\"pasar()\" />";
+       String div = "<input type='button'  value='Apostar' onclick='apostar()'  />"
+               + "<input type='button'  value='Pagar' onclick='pagar()'  disabled/>"
+               + "<input type='button'  value='Pasar' onclick='pasar()'  />";
        
        
-        enviar("inicioNuevaMano", div);
+       enviar("inicioNuevaMano", div);
         
         enviar("listaPagan", "");
 //listaPagan.removeAll();
@@ -72,6 +72,13 @@ public class VistaJuegoWeb implements VistaJuego {
     @Override
     public void inicioNuevaApuesta(String jugadorNombre, int monto) {
         enviar("nuevaApuesta", jugadorNombre+" ha apostado "+monto);
+          String div = "<input type='button'  value='Apostar' onclick='apostar()' disabled />"
+               + "<input type='button'  value='Pagar' onclick='pagar()'  />"
+               + "<input type='button'  value='Pasar' onclick='pasar()'  />";
+       
+       
+        enviar("inicioNuevaMano", div);
+        
     }
 
     @Override
@@ -114,6 +121,7 @@ public class VistaJuegoWeb implements VistaJuego {
 
     @Override
     public void salirJuego() {
+         enviar("salirJuego", "");
         Participante p = (Participante) request.getSession().getAttribute("participante");
         controlador.eliminarParticipante(p);
         controlador.desregistrarControlador();
@@ -129,18 +137,19 @@ public class VistaJuegoWeb implements VistaJuego {
         
         for (Carta c: cartas)
         {
-            div+="<img class='carta' src='imagenes/cartas/"+c.getImagen()+"' style='width:30%; height:30%'/>";
+            div+="<img class='carta' src='imagenes/cartas/"+c.getImagen()+"' style='width:10%; height:10%'/>";
         }
         
         
         
-       ;
+       
         
         enviar("mostrarGanador", div);
     }
 
     @Override
     public void fuiExpulsado() {
+        enviar("fuiExpulsado", "");
         salirJuego();
     }
 
@@ -148,7 +157,7 @@ public class VistaJuegoWeb implements VistaJuego {
     public void actualizarMano(List<Carta> cartasMano, String figura) {
         
         ArrayList<String> cartas = new ArrayList();
-        String mano = "";
+        String mano = "Tienes "+figura+"<br>";
         for (Carta c: cartasMano)
         {
             mano+="<img  class='carta'src='imagenes/cartas/"+c.getImagen()+"'/>";
