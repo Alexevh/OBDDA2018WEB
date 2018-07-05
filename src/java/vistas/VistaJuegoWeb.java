@@ -121,7 +121,7 @@ public class VistaJuegoWeb implements VistaJuego {
 
     @Override
     public void salirJuego() {
-         enviar("salirJuego", "");
+       enviar("salirJuego", "");
         Participante p = (Participante) request.getSession().getAttribute("participante");
         controlador.eliminarParticipante(p);
         controlador.desregistrarControlador();
